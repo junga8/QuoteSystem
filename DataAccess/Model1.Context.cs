@@ -28,3 +28,4 @@ namespace DataAccess
         public virtual DbSet<Quote> Quotes { get; set; }
     }
 }
+ 

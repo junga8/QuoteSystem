@@ -22,3 +22,4 @@ namespace DataAccess
         public string TaskType { get; set; }
     }
 }
+

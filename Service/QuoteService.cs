@@ -25,9 +25,8 @@ namespace Service
         public void DeleteTask(long id)
         {
             Quote quote = GetTaskByID(id);
-            QuoteRepository.Remove(quote);
+            QuoteRepository.Delete(quote);
             QuoteRepository.SaveChanges(); 
-
 
         } 
 
@@ -57,3 +56,5 @@ namespace Service
         }
     }
 }
+
+

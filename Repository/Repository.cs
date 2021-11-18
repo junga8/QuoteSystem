@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Repository
 {
@@ -12,7 +14,7 @@ namespace Repository
     {
         private readonly QuoteDBEntities context;
         private DbSet<T> entities;
-       // string errorMessage = string.Empty;
+        // string errorMessage = string.Empty;
 
         public Repository(QuoteDBEntities context)
         {
@@ -34,11 +36,12 @@ namespace Repository
             {
                 throw new ArgumentNullException("entity");
             }
-            entities.Add(entity);
+            context.Set<T>().Add(entity);
+            //entities.Add(entity);
             context.SaveChanges();
         }
 
-     
+
 
         public void Delete(T entity)
         {
@@ -65,37 +68,28 @@ namespace Repository
 
         public void Update(T entity, long id)
         {
-            if (entity == null)
+            var item = entities.Find(id);
+            
+
+            if (item == null)
             {
                 throw new ArgumentNullException("entity");
-            }
-            else
+            }else
             {
-                using (QuoteDBEntities db = new QuoteDBEntities())
-                {
-                    var item = db.Quotes.FirstOrDefault(q => q.QuoteID == id); 
 
-                    while (item.QuoteID == id)
-                    {
-                        entities.Attach(entity);
-                        context.Entry(entity).State = EntityState.Modified;
-                        context.SaveChanges();
 
-                    }
-                }
+                entities.Attach(entity); 
+                context.SaveChanges();
+
                 
-
-              
-
-
-           
-
-
             }
+
+          
+
         }
-           
-        }
+
     }
 
 
+}
 

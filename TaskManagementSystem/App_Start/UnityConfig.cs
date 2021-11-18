@@ -1,3 +1,5 @@
+using DataAccess;
+using Repository;
 using Service;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -16,6 +18,8 @@ namespace TaskManagementSystem
 			// it is NOT necessary to register your controllers
 			
 			 container.RegisterType<IQuoteService, QuoteService>();
+
+			container.RegisterType<IRepository<Quote>,Repository.Repository < Quote >> ();
 			
 			
 			GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

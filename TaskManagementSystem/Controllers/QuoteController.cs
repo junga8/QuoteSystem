@@ -13,14 +13,6 @@ namespace TaskManagementSystem.Controllers
     {
         private readonly IQuoteService _quoteService; 
 
-
-        public QuoteController()
-        {
-
-        }
-      
-      
-
         //construction injection 
         public QuoteController(IQuoteService quoteService)
         {
@@ -35,24 +27,34 @@ namespace TaskManagementSystem.Controllers
         }
 
         // GET: api/Quote/5
-        public string Get(int id)
+        public Quote Get(int id)
         {
-            return "value";
+           var quote = _quoteService.GetTaskByID(id);
+
+            if(quote== null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            return quote; 
         }
 
         // POST: api/Quote
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Quote quote)
         {
+            _quoteService.InsertTask(quote);
         }
 
         // PUT: api/Quote/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Quote value)
         {
+            _quoteService.UpdateTask(id, value);
         }
 
         // DELETE: api/Quote/5
         public void Delete(int id)
-        {
+        { 
+            _quoteService.DeleteTask(id);
         }
     }
 }

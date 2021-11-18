@@ -26,6 +26,13 @@ namespace DataAccess
         }
     
         public virtual DbSet<Quote> Quotes { get; set; }
+
+        public object Entry<T>(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }
  
